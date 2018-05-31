@@ -31,8 +31,27 @@ class App extends Component {
   }
 }
 
+class TaskList extends Component {
+  // Update task is done or not
+  updateStatus(key) {
+    tasks.map((item) => {
+      if (item.name === key) {
+        if (item.done) {
+          item.done = false
+        } else {
+          item.done = true;
+        }
+      }
+      return null;
+    }); 
+   this.forceUpdate()
+  }
 
-function TaskList (props) {
+  // Remove a task
+  removeTask(key) {
+    alert("Test for call remove "+key);
+  }
+  render () {
     var _this = this;
     var counter = 0;
     return (
@@ -53,11 +72,15 @@ function TaskList (props) {
             </tr>
           )
         }
+        return null;
       })
     );
+  }
 }
 
+
 class Task extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {"name": "", "desc":"","done":false, "removed": false};
@@ -65,6 +88,7 @@ class Task extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -80,26 +104,6 @@ class Task extends Component {
     this.forceUpdate();
     event.preventDefault();
   }
-  // Update task is done or not
-  updateStatus(key) {
-    tasks.map((item) => {
-      if (item.name == key) {
-        if (item.done) {
-          item.done = false
-        } else {
-          item.done = true;
-        }
-      }
-    }); 
-   this.forceUpdate()
-  }
-
-  // Remove a task
-  removeTask(key) {
-    alert("Test for call remove "+key);
-  }
-
-  
   render () {
     return (
       <div>
