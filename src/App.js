@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+// Static to do list data
 var tasks = [
   // {"name": "shopping-milk", "desc":"Get milk","done":false, "removed": false},
   // {"name": "cleening", "desc":"Clean room","done":false, "removed": false},
@@ -44,12 +44,18 @@ class TaskList extends Component {
       }
       return null;
     }); 
-   this.forceUpdate()
+   this.forceUpdate();
   }
 
   // Remove a task
   removeTask(key) {
-    alert("Test for call remove "+key);
+    tasks.map((item, index) => {
+      if (item.name === key) {
+        tasks.splice(index,1);
+      }
+      return null;
+    }); 
+   this.forceUpdate();
   }
   render () {
     var _this = this;
@@ -99,9 +105,22 @@ class Task extends Component {
     });
   }
 
+  checkInput(name) {
+    var name_exist = false;
+    tasks.map((item) => {
+      if (item.name === name) {
+        alert(name + ' has already been added! Please enter different task name.');
+        name_exist = true;
+      }
+      return null;
+    }); 
+    return name_exist;
+  }
   handleSubmit(event) {
-    tasks.push(this.state);
-    this.forceUpdate();
+    if(!this.checkInput(this.state.name) && this.state.name && this.state.name != 'undefined') {
+      tasks.push(this.state);
+      this.forceUpdate();
+    }
     event.preventDefault();
   }
   render () {
